@@ -4,3 +4,16 @@ Please do not fork this repository, but use this repository as a template for yo
 
 ## Project for today
 The task for today you can find in the [data-pipeline-project.md](data-pipeline-project.md) file.
+
+
+## Environment
+
+Use this file to create a new environment for this task.
+
+```bash
+pyenv local 3.11.3
+python -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
