@@ -23,8 +23,15 @@ Bonus task if you have the time:
 ## Questions:
 
 1. What are the steps you took to complete the project?
-2. What are the challenges you faced?
-3. What are the things you would do differently if you had more time?
+   a. GoogleCloud:
+     - Created new project (mle-neue-fische-gunnaroeh) 
+     - enable Identity and Access Management (IAM) API.
+     - Create one Service account with the two roles Storage Admin, Storage Object Admin
+       - enter details under service accounts, select a role, add another role
+     - Created Bucket 01_data_pipeline_project in europe-west-3 with public access prevention   
+
+3. What are the challenges you faced?
+4. What are the things you would do differently if you had more time?
 
 ## Submission:
 
