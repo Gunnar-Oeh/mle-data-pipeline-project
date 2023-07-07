@@ -31,7 +31,11 @@ Bonus task if you have the time:
      - Created Bucket 01_data_pipeline_project in europe-west-3 with public access prevention
      - Cloned git-repository
      - copied requirements.txt from   https://github.com/Gunnar-Oeh/mle-batch-and-stream-processing/blob/main/requirements.txt
-     - added set-up-ebv commands to the readme 
+     - added set-up-ebv commands to the readme
+     - copied data-ingestion from yesterday into ./src/, minor changes and commenting for understanding
+     - Ran 'python src/data_ingestion.py --sa_path <path-to-service-account-json> --bucket <bucket-name> --project_id <project-id> --color <taxi-color>'
+
+' 
 
 3. What are the challenges you faced?
 4. What are the things you would do differently if you had more time?
