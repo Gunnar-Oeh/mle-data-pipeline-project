@@ -28,7 +28,10 @@ Bonus task if you have the time:
      - enable Identity and Access Management (IAM) API.
      - Create one Service account with the two roles Storage Admin, Storage Object Admin
        - enter details under service accounts, select a role, add another role
-     - Created Bucket 01_data_pipeline_project in europe-west-3 with public access prevention   
+     - Created Bucket 01_data_pipeline_project in europe-west-3 with public access prevention
+     - Cloned git-repository
+     - copied requirements.txt from   https://github.com/Gunnar-Oeh/mle-batch-and-stream-processing/blob/main/requirements.txt
+     - added set-up-ebv commands to the readme 
 
 3. What are the challenges you faced?
 4. What are the things you would do differently if you had more time?
