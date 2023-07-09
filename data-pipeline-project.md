@@ -33,6 +33,8 @@ Bonus task if you have the time:
      - copied requirements.txt from   https://github.com/Gunnar-Oeh/mle-batch-and-stream-processing/blob/main/requirements.txt
      - added set-up-ebv commands to the readme
      - copied data-ingestion from yesterday into ./src/, minor changes and commenting for understanding
+      - Important addition: 'from google.cloud import storage' -> 'client = storage.Client();  bucket = client.get_bucket(bucket)' to initate a client that can exchange data with the Cloud-Bucket
+      - 'bucket.blob(f'ny_taxi/{file_name}').pload_from_string(df_taxi.to_parquet(), 'text/parquet')' to create empty blobs remotely and then transfer the .parquet as a string into this blob from the local machine
      - Ran 'python src/data_ingestion.py --sa_path <path-to-service-account-json> --bucket <bucket-name> --project_id <project-id> --color <taxi-color>'
 
 ' 
