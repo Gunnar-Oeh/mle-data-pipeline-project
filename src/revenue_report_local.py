@@ -7,6 +7,7 @@ from time import time
 import os
 from google.cloud import storage
 import pyspark
+from dotenv import load_dotenv
 
 @click.command() # click commands instead of argparse.ArgumentParser()... or sys.argv[n]
 @click.option('--sa_path', help='Path to the service account json file')
@@ -83,7 +84,23 @@ def transform_data(df_taxi, spark):
 
 ### 5. L: Load Data onto local Machine PostgreSQL
 def load_data(df_transformed):
+    load_dotenv()
+    # get the Database Credentials
+    user = os.getenv('USER')
+    pw = os.getenv('PASSWORD')
+    host = os.getenv('HOST')
+    port = os.getenv('PORT')
+    db = os.getenv('DB')
+    schema = os.getenv('SCHEMA')
     # some commands to write it into storage in the db
-    pass
+    table_name = f"{color}_revenue_{year}_{month}"
+    # Write DataFrame to PostgreSQL
+    df_transformed.write.format("jdbc") \
+        .option("url", f"jdbc:postgresql://{host}:{port}/{db}") \
+        .option("schema", schema)
+        .option("dbtable", ) \
+        .option("user", user) \
+        .option("password", password) \
+        .mode("append") \
+        .save()
 
-### Main with print to test the script running

@@ -5,3 +5,4 @@ faust-streaming
 pyarrow
 google-cloud-storage
 click
+dotenv
