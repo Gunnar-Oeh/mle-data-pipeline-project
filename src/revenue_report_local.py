@@ -45,6 +45,10 @@ def extract_data(sa_path, bucket, color, year, month):
     df_taxi.drop("ehail_fee", inplace=True, axis=1)
     df_taxi = spark.createDataFrame(df_taxi)
 
+    for col in df_taxi.columns:
+        if df_taxi.schema[col].dataType == types.DoubleType():
+            df_taxi = df_taxi.withColumn(col, F.col(col).cast('float'))
+
     return df_taxi, spark
 
 ### 4. Repartition the data
@@ -98,9 +102,8 @@ def load_data(df_transformed):
     df_transformed.write.format("jdbc") \
         .option("url", f"jdbc:postgresql://{host}:{port}/{db}") \
         .option("schema", schema)
-        .option("dbtable", ) \
+        .option("dbtable", table_name) \
         .option("user", user) \
         .option("password", password) \
-        .mode("append") \
         .save()
 
