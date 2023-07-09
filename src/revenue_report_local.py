@@ -102,9 +102,8 @@ def load_data(df_transformed):
     df_transformed.write.format("jdbc") \
         .option("url", f"jdbc:postgresql://{host}:{port}/{db}") \
         .option("schema", schema)
-        .option("dbtable", ) \
+        .option("dbtable", table_name) \
         .option("user", user) \
         .option("password", password) \
-        .mode("append") \
         .save()
 
