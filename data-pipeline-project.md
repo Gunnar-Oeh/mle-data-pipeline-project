@@ -29,11 +29,15 @@ Bonus task if you have the time:
      - Create one Service account with the two roles Storage Admin, Storage Object Admin
        - enter details under service accounts, select a role, add another role
      - Created Bucket 01_data_pipeline_project in europe-west-3 with public access prevention
+   b. Task 01:
      - Cloned git-repository
      - copied requirements.txt from   https://github.com/Gunnar-Oeh/mle-batch-and-stream-processing/blob/main/requirements.txt
      - added set-up-ebv commands to the readme
      - copied data-ingestion from yesterday into ./src/, minor changes and commenting for understanding
      - Ran 'python src/data_ingestion.py --sa_path <path-to-service-account-json> --bucket <bucket-name> --project_id <project-id> --color <taxi-color>'
+   c. Task 02:
+     - Enabled DataProc API on GCP
+     - created Dataproc-Cluster with Name 
 
 ' 
 
