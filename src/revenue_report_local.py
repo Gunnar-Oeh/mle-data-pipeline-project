@@ -1,14 +1,13 @@
-### 1. Set up connection to google cloud
-### 2. Import packages
-
 import click
 import pandas as pd
 from time import time
 import os
 from google.cloud import storage
 import pyspark
-from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession, types
+from pyspark.sql import functions as F
 from dotenv import load_dotenv
+from io import BytesIO
 
 @click.command() # click commands instead of argparse.ArgumentParser()... or sys.argv[n]
 @click.option('--sa_path', help='Path to the service account json file')
@@ -18,10 +17,9 @@ from dotenv import load_dotenv
 @click.option('--color', help='Str of the taxi-color for which data should be extracted')
 @click.option('--month', help='Int of the month to summarize the data for')
 
-### 3. E: Extract the data as a function
 def extract_data(sa_path, bucket, color, year, month):
     # Create Spark Session
-    spark = SparkSession.builder \
+    spark = SparkSession.builder.config("spark.jars", "../postgresql-42.6.0.jar") \
     .master("local") \
     .appName(f"Pipe-{color}_taxi_{year}-{month:02d}") \
     .getOrCreate()
@@ -56,8 +54,7 @@ def extract_data(sa_path, bucket, color, year, month):
 def repartition_data():
     pass
 
-### 4. T: Transform with Spark-SQL as a function 
-    ### First just get one row
+### Transform Data to revenue report
 def transform_data(df_taxi, spark):
     # some sql commands
     df_taxi = df_taxi \
@@ -88,6 +85,7 @@ def transform_data(df_taxi, spark):
     return df_result
 
 ### 5. L: Load Data onto local Machine PostgreSQL
+### 5. L: Load Data onto local Machine PostgreSQL
 def load_data(df_transformed, spark, color, year, month):
     load_dotenv()
     # get the Database Credentials
@@ -101,8 +99,7 @@ def load_data(df_transformed, spark, color, year, month):
     table_name = f"{color}_revenue_{year}_{month}"
     # Write DataFrame to PostgreSQL
     df_transformed.write.format("jdbc") \
-        # test the url hardcoded first
-        .option("url", f"jdbc:postgresql://localhost:5432/ny_taxi") \
+        .option("url", "jdbc:postgresql://localhost:5432/ny_taxi") \
         .option("schema", schema) \
         .option("dbtable", table_name) \
         .option("user", user) \

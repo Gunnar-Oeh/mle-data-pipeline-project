@@ -6,3 +6,4 @@ pyarrow
 google-cloud-storage
 click
 dotenv
+sqlalchemy
