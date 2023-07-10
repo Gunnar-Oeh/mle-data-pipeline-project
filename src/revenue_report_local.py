@@ -7,6 +7,7 @@ from time import time
 import os
 from google.cloud import storage
 import pyspark
+from pyspark.sql import SparkSession
 from dotenv import load_dotenv
 
 @click.command() # click commands instead of argparse.ArgumentParser()... or sys.argv[n]
@@ -87,7 +88,7 @@ def transform_data(df_taxi, spark):
     return df_result
 
 ### 5. L: Load Data onto local Machine PostgreSQL
-def load_data(df_transformed):
+def load_data(df_transformed, spark, color, year, month):
     load_dotenv()
     # get the Database Credentials
     user = os.getenv('USER')
@@ -100,10 +101,11 @@ def load_data(df_transformed):
     table_name = f"{color}_revenue_{year}_{month}"
     # Write DataFrame to PostgreSQL
     df_transformed.write.format("jdbc") \
-        .option("url", f"jdbc:postgresql://{host}:{port}/{db}") \
-        .option("schema", schema)
+        # test the url hardcoded first
+        .option("url", f"jdbc:postgresql://localhost:5432/ny_taxi") \
+        .option("schema", schema) \
         .option("dbtable", table_name) \
         .option("user", user) \
-        .option("password", password) \
+        .option("password", pw) \
         .save()
 
