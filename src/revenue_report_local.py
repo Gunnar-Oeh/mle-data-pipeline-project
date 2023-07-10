@@ -19,7 +19,7 @@ from io import BytesIO
 
 def extract_data(sa_path, bucket, color, year, month):
     # Create Spark Session
-    spark = SparkSession.builder.config("spark.jars", "../postgresql-42.6.0.jar") \
+    spark = SparkSession.builder.config("spark.jars", "../../postgresql-42.6.0.jar") \
     .master("local") \
     .appName(f"Pipe-{color}_taxi_{year}-{month:02d}") \
     .getOrCreate()
@@ -85,7 +85,6 @@ def transform_data(df_taxi, spark):
     return df_result
 
 ### 5. L: Load Data onto local Machine PostgreSQL
-### 5. L: Load Data onto local Machine PostgreSQL
 def load_data(df_transformed, spark, color, year, month):
     load_dotenv()
     # get the Database Credentials
@@ -97,12 +96,12 @@ def load_data(df_transformed, spark, color, year, month):
     schema = os.getenv('SCHEMA')
     # some commands to write it into storage in the db
     table_name = f"{color}_revenue_{year}_{month}"
-    # Write DataFrame to PostgreSQL
-    df_transformed.write.format("jdbc") \
-        .option("url", "jdbc:postgresql://localhost:5432/ny_taxi") \
-        .option("schema", schema) \
-        .option("dbtable", table_name) \
-        .option("user", user) \
-        .option("password", pw) \
-        .save()
+    # Write DataFrame to PostgreSQL - throws unsolvable error
+    #df_transformed.write.format("jdbc") \
+    #    .option("url", "jdbc:postgresql://localhost:5432/ny_taxi") \
+    #    .option("schema", schema) \
+    #    .option("dbtable", table_name) \
+    #    .option("user", user) \
+    #    .option("password", pw) \
+    #    .save()
 
