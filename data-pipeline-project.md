@@ -16,8 +16,6 @@ In this project you are going to build a data pipeline that is processing the `G
 Bonus task if you have the time:
 
 1. Use prefect for the Workflow Orechestration.
-   - Python commands only?
-   - Or from within the prefect script Docker-Run/DBT run
 
 
 ## Questions:
@@ -39,12 +37,20 @@ Bonus task if you have the time:
      - Ran 'python src/data_ingestion.py --sa_path <path-to-service-account-json> --bucket <bucket-name> --project_id <project-id> --color <taxi-color>'
    c. Task 02:
      - Enabled DataProc API on GCP
-     - created Dataproc-Cluster with Name 
+     - created Dataproc-Cluster with Name (which I did not use)
+     - put together a src/revenue_pipeline.py
+     - created a .env to hide database-connection credentials
 
 ' 
 
-3. What are the challenges you faced?
-4. What are the things you would do differently if you had more time?
+2. What are the challenges you faced?
+   - pyspark 'df.write()' was not able to properly connect to local PostgreSQL database
+   - for the load function, pyspark-df had to be cast to pandas-df: This came with problems with data-types and whether those are recognized by pandas
+   - getting the 'main_pipeline()' function to use the click-command-line arguments
+   - connecting with the .env to the local Database 
+3. What are the things you would do differently if you had more time?
+   - Add prefect workflow-orchestration
+   - Adapt the script to write into GCS/BigQuery
 
 ## Submission:
 
