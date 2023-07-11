@@ -8,7 +8,7 @@ The task for today you can find in the [data-pipeline-project.md](data-pipeline-
 ## Run the data ingestion
 
 ## Run the pipeline
-'python src/revenue_pipeline.py --sa_path <path_to_GCP_credentials.json> --bucket <GCS-Bucket-Name> --year 2021 --color <taxi-color> --month <number of month>'
+'python src/revenue_pipeline.py --sa_path <path_to_GCP_credentials.json> --bucket <GCS_Bucket_Name> --year <year> --color <taxi_color> --month <number_of_month>'
 ## Environment
 
 Use this file to create a new environment for this task.
