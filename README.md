@@ -7,6 +7,8 @@ The task for today you can find in the [data-pipeline-project.md](data-pipeline-
 
 ## Run the data ingestion
 
+'python3 src/data_ingestion.py --sa_path <path_to_GCP_credentials.json> --project_id <GCP_project_id> --bucket <GCS_Bucket_Name> --year <year> --color <taxi_color> --month <number_of_month>'
+
 ## Run the pipeline
 'python src/revenue_pipeline.py --sa_path <path_to_GCP_credentials.json> --bucket <GCS_Bucket_Name> --year <year> --color <taxi_color> --month <number_of_month>'
 ## Environment
