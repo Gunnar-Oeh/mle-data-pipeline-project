@@ -5,7 +5,10 @@ Please do not fork this repository, but use this repository as a template for yo
 ## Project for today
 The task for today you can find in the [data-pipeline-project.md](data-pipeline-project.md) file.
 
+## Run the data ingestion
 
+## Run the pipeline
+'python src/revenue_pipeline.py --sa_path <path_to_GCP_credentials.json> --bucket <GCS-Bucket-Name> --year 2021 --color <taxi-color> --month <number of month>'
 ## Environment
 
 Use this file to create a new environment for this task.
