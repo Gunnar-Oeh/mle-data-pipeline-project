@@ -18,6 +18,10 @@ from sqlalchemy import create_engine
 @click.option('--bucket', help='Name of the bucket to upload the data')
 @click.option('--color', help='Str of the taxi-color for which data should be extracted')
 @click.option('--month', help='Int of the month to summarize the data for')
+def main_pipeline(sa_path, bucket, color, year, month):    
+    df_taxi, spark = extract_data(sa_path, bucket, color, year, month)
+    df_transformed = transform_data(df_taxi, spark)
+    load_data(df_transformed, spark, color, year, month)
 
 def extract_data(sa_path, bucket, color, year, month):
     month = int(month)
@@ -71,12 +75,13 @@ def transform_data(df_taxi, spark):
 
 def load_data(df_transformed, spark, color, year, month):
     load_dotenv()
-    user = os.getenv('USER')
+    user = os.getenv('DB_USER')
     pw = os.getenv('PASSWORD')
     host = os.getenv('HOST')
     port = os.getenv('PORT')
     db = os.getenv('DB')
     schema = os.getenv('SCHEMA')
+
     engine = create_engine(f'postgresql://{user}:{pw}@{host}:{port}/{db}')
     table_name = f"{color}_revenue_{year}_{month}"
     df_transformed = df_transformed.withColumn("revenue_day", df_transformed.revenue_day.cast(types.StringType())) \
@@ -87,12 +92,5 @@ def load_data(df_transformed, spark, color, year, month):
     df_transformed.to_sql(name=table_name, con=engine, schema=schema, 
                           if_exists="replace", index=False)
 
-def main_pipeline(sa_path, bucket, color, year, month):    
-    df_taxi, spark = extract_data(sa_path, bucket, color, year, month)
-    df_transformed = transform_data(df_taxi, spark)
-    load_data(df_transformed, spark, color, year, month)
-
 if __name__ == '__main__':
-    # extract_data()                                         # not nested works
-    main_pipeline()                                          # main_pipeline() missing 5 required positional arguments
-    # main_pipeline(sa_path, bucket, color, year, month)     # NameError: name 'sa_path' is not defined
+    main_pipeline()                                          
